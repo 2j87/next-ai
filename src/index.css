@@ -5,8 +5,9 @@
   --color-border-strong: #40475a;
   --color-text: #f8fafc;
   --color-text-muted: #8b93a1;
-  --color-accent: #1890ff;
-  --color-accent-hover: #3aa0ff;
+  --color-accent: #1d4ed8;
+  --color-accent-hover: #2b5fe0;
+  --color-link: #1890ff;
   color-scheme: dark;
 
   --radius-pill: 9999px;
@@ -37,7 +38,7 @@
     --color-border-strong: #c7ccd6;
     --color-text: #101317;
     --color-text-muted: #5b6370;
-    --color-accent-hover: #0f7ae0;
+    --color-link: #1d4ed8;
     color-scheme: light;
   }
 }
@@ -49,7 +50,7 @@
   --color-border-strong: #c7ccd6;
   --color-text: #101317;
   --color-text-muted: #5b6370;
-  --color-accent-hover: #0f7ae0;
+  --color-link: #1d4ed8;
   color-scheme: light;
 }
 
@@ -60,7 +61,7 @@
   --color-border-strong: #40475a;
   --color-text: #f8fafc;
   --color-text-muted: #8b93a1;
-  --color-accent-hover: #3aa0ff;
+  --color-link: #1890ff;
   color-scheme: dark;
 }
 

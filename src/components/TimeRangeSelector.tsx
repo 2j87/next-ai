@@ -38,6 +38,7 @@ function TimeRangeSelector({
               value={option.value}
               checked={value === option.value}
               onChange={() => onChange(option.value)}
+              aria-label={option.label}
             />
             {option.label}
           </label>

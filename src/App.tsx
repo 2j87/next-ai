@@ -39,7 +39,9 @@ function App() {
           NextAI
         </Link>
         <div className={styles.links}>
-          <Link to="/" className={styles.link}>Ara</Link>
+          <Link to="/" className={styles.link} aria-label="Arama sayfasına git">
+            Ara
+          </Link>
           <Link to="/gecmis" className={styles.link} aria-label="Arama geçmişi">
             Geçmiş
           </Link>

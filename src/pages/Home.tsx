@@ -46,7 +46,7 @@ function Home() {
           onStartDateChange={setStartDate}
           onEndDateChange={setEndDate}
         />
-        <button type="submit" className={styles.submit}>
+        <button type="submit" className={styles.submit} aria-label="Aramayı başlat">
           Ara
         </button>
       </form>

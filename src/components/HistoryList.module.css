@@ -25,7 +25,7 @@
 
 .button:hover,
 .button:focus-visible {
-  color: var(--color-accent);
+  color: var(--color-link);
 }
 
 .keyword {
