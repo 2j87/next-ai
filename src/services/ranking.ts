@@ -1,6 +1,6 @@
 import type { Post } from '../types';
 
-const MIN_CONTENT_LENGTH = 20;
+const MIN_MEANINGFUL_LENGTH = 25;
 const BM25_K1 = 1.5;
 const BM25_B = 0.75;
 
@@ -8,15 +8,30 @@ function turkishLower(text: string): string {
   return text.replace(/İ/g, 'i').replace(/I/g, 'ı').toLowerCase();
 }
 
+function stripUrls(text: string): string {
+  return text.replace(/https?:\/\/\S+/g, ' ');
+}
+
+function stripHashtagsAndMentions(text: string): string {
+  return text.replace(/[#@]\S+/g, ' ');
+}
+
 function tokenize(text: string): string[] {
-  return turkishLower(text).match(/[\p{L}\p{N}]+/gu) ?? [];
+  return turkishLower(stripUrls(text)).match(/[\p{L}\p{N}]+/gu) ?? [];
+}
+
+// A post with plenty of characters can still be "just a link" or a wall of
+// hashtags. This measures the actual sentence text once both are removed,
+// so those low-information posts don't slip past the length check.
+function meaningfulTextLength(content: string): number {
+  return stripHashtagsAndMentions(stripUrls(content)).trim().length;
 }
 
 function coarseFilter(posts: Post[], queryTokens: string[]): Post[] {
   const queryTermSet = new Set(queryTokens);
 
   return posts.filter((post) => {
-    if (post.content.length < MIN_CONTENT_LENGTH) return false;
+    if (meaningfulTextLength(post.content) < MIN_MEANINGFUL_LENGTH) return false;
     return tokenize(post.content).some((token) => queryTermSet.has(token));
   });
 }
@@ -60,6 +75,28 @@ function bm25Rank(posts: Post[], queryTokens: string[]): ScoredPost[] {
     .sort((a, b) => b.score - a.score);
 }
 
+const MAX_PER_ACCOUNT = 2;
+
+// A single automated news account can flood the results with near-identical
+// posts that all score well (they repeat the keyword in every headline).
+// Capping how many posts from one account can appear keeps the source list
+// diverse instead of letting one bot account take every slot.
+function withAccountDiversity(ranked: ScoredPost[], limit: number): Post[] {
+  const perAccountCount = new Map<string, number>();
+  const selected: Post[] = [];
+
+  for (const { post } of ranked) {
+    const count = perAccountCount.get(post.username) ?? 0;
+    if (count >= MAX_PER_ACCOUNT) continue;
+
+    selected.push(post);
+    perAccountCount.set(post.username, count + 1);
+    if (selected.length >= limit) break;
+  }
+
+  return selected;
+}
+
 export function rankPosts(posts: Post[], keyword: string, limit = 8): Post[] {
   const queryTokens = tokenize(keyword);
   if (queryTokens.length === 0 || posts.length === 0) {
@@ -69,7 +106,6 @@ export function rankPosts(posts: Post[], keyword: string, limit = 8): Post[] {
   const filtered = coarseFilter(posts, queryTokens);
   const candidates = filtered.length > 0 ? filtered : posts;
 
-  return bm25Rank(candidates, queryTokens)
-    .slice(0, limit)
-    .map((entry) => entry.post);
+  const ranked = bm25Rank(candidates, queryTokens);
+  return withAccountDiversity(ranked, limit);
 }
