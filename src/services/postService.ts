@@ -56,11 +56,37 @@ function toPost(status: MastodonStatus): Post {
 }
 
 async function fetchHashtagTimeline(hashtag: string): Promise<Post[]> {
-  const response = await fetch(`${HASHTAG_TIMELINE_URL}/${encodeURIComponent(hashtag)}?limit=15`);
+  const response = await fetch(`${HASHTAG_TIMELINE_URL}/${encodeURIComponent(hashtag)}?limit=40`);
   if (!response.ok) return [];
 
   const statuses: MastodonStatus[] = await response.json();
   return statuses.map(toPost);
+}
+
+function isSameCalendarDay(a: Date, b: Date): boolean {
+  return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+}
+
+function isWithinTimeRange(post: Post, query: SearchQuery): boolean {
+  const postDate = new Date(post.timestamp);
+  const now = new Date();
+
+  if (query.timeRange === 'custom') {
+    if (!query.startDate || !query.endDate) return true;
+    const start = new Date(query.startDate);
+    const end = new Date(query.endDate);
+    end.setHours(23, 59, 59, 999);
+    return postDate >= start && postDate <= end;
+  }
+
+  if (query.timeRange === 'today') {
+    return isSameCalendarDay(postDate, now);
+  }
+
+  const rangeDays = query.timeRange === '3days' ? 3 : 7;
+  const cutoff = new Date(now);
+  cutoff.setDate(cutoff.getDate() - rangeDays);
+  return postDate >= cutoff;
 }
 
 export async function fetchRelevantPosts(query: SearchQuery): Promise<Post[]> {
@@ -85,7 +111,8 @@ export async function fetchRelevantPosts(query: SearchQuery): Promise<Post[]> {
     }
   }
 
-  return rankPosts(merged, query.keyword, 8);
+  const withinRange = merged.filter((post) => isWithinTimeRange(post, query));
+  return rankPosts(withinRange, query.keyword, 8);
 }
 
 export async function generateSummary(query: SearchQuery, posts: Post[]): Promise<SummaryResult> {
