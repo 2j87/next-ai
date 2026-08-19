@@ -21,12 +21,20 @@ function wait(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-function toHashtag(keyword: string): string {
-  return keyword
+function toHashtag(word: string): string {
+  return word
     .trim()
     .toLowerCase()
-    .replace(/\s+/g, '')
     .replace(/[^\p{L}\p{N}]/gu, '');
+}
+
+function hashtagCandidates(keyword: string): string[] {
+  const words = keyword.trim().split(/\s+/).filter(Boolean);
+  const whole = toHashtag(words.join(''));
+  const individual = words.map(toHashtag).filter(Boolean);
+
+  const candidates = [whole, ...individual].filter(Boolean);
+  return Array.from(new Set(candidates)).slice(0, 5);
 }
 
 function stripHtml(html: string): string {
@@ -35,25 +43,48 @@ function stripHtml(html: string): string {
   return div.textContent?.trim() || '(içerik yok)';
 }
 
-export async function fetchRelevantPosts(query: SearchQuery): Promise<Post[]> {
-  const hashtag = toHashtag(query.keyword);
-  if (!hashtag) return [];
-
-  const response = await fetch(`${HASHTAG_TIMELINE_URL}/${encodeURIComponent(hashtag)}?limit=10`);
-  if (!response.ok) {
-    throw new Error('Gönderiler alınamadı');
-  }
-
-  const statuses: MastodonStatus[] = await response.json();
-
-  return statuses.map((status) => ({
+function toPost(status: MastodonStatus): Post {
+  return {
     id: status.id,
     username: `@${status.account.username}`,
     content: stripHtml(status.content),
     timestamp: status.created_at,
     isVerified: status.account.fields.some((field) => field.verified_at !== null),
     url: status.url,
-  }));
+  };
+}
+
+async function fetchHashtagTimeline(hashtag: string): Promise<Post[]> {
+  const response = await fetch(`${HASHTAG_TIMELINE_URL}/${encodeURIComponent(hashtag)}?limit=15`);
+  if (!response.ok) return [];
+
+  const statuses: MastodonStatus[] = await response.json();
+  return statuses.map(toPost);
+}
+
+export async function fetchRelevantPosts(query: SearchQuery): Promise<Post[]> {
+  const candidates = hashtagCandidates(query.keyword);
+  if (candidates.length === 0) return [];
+
+  const results = await Promise.allSettled(candidates.map(fetchHashtagTimeline));
+
+  if (results.every((result) => result.status === 'rejected')) {
+    throw new Error('Gönderiler alınamadı');
+  }
+
+  const seen = new Set<string>();
+  const merged: Post[] = [];
+
+  for (const result of results) {
+    if (result.status !== 'fulfilled') continue;
+    for (const post of result.value) {
+      if (seen.has(post.id)) continue;
+      seen.add(post.id);
+      merged.push(post);
+    }
+  }
+
+  return merged;
 }
 
 export async function generateSummary(query: SearchQuery, posts: Post[]): Promise<SummaryResult> {
