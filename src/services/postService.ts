@@ -1,4 +1,5 @@
 import type { Post, SearchQuery, SummaryReference, SummaryResult } from '../types';
+import { rankPosts } from './ranking';
 
 const HASHTAG_TIMELINE_URL = 'https://mastodon.social/api/v1/timelines/tag';
 
@@ -84,7 +85,7 @@ export async function fetchRelevantPosts(query: SearchQuery): Promise<Post[]> {
     }
   }
 
-  return merged;
+  return rankPosts(merged, query.keyword, 8);
 }
 
 export async function generateSummary(query: SearchQuery, posts: Post[]): Promise<SummaryResult> {
