@@ -1,6 +1,6 @@
 import type { Post } from '../types';
 
-const MIN_MEANINGFUL_LENGTH = 25;
+const MIN_MEANINGFUL_WORDS = 8;
 const BM25_K1 = 1.5;
 const BM25_B = 0.75;
 
@@ -20,18 +20,19 @@ function tokenize(text: string): string[] {
   return turkishLower(stripUrls(text)).match(/[\p{L}\p{N}]+/gu) ?? [];
 }
 
-// A post with plenty of characters can still be "just a link" or a wall of
-// hashtags. This measures the actual sentence text once both are removed,
-// so those low-information posts don't slip past the length check.
-function meaningfulTextLength(content: string): number {
-  return stripHashtagsAndMentions(stripUrls(content)).trim().length;
+// A syndicated headline ("X gençleri – Erdoğan X gençlerine" + link) can be
+// long enough in characters to pass a length check while still being just a
+// title fragment with no real sentence. Counting actual words left after
+// stripping urls/hashtags catches these even when the char count looks fine.
+function meaningfulWordCount(content: string): number {
+  return tokenize(stripHashtagsAndMentions(content)).length;
 }
 
 function coarseFilter(posts: Post[], queryTokens: string[]): Post[] {
   const queryTermSet = new Set(queryTokens);
 
   return posts.filter((post) => {
-    if (meaningfulTextLength(post.content) < MIN_MEANINGFUL_LENGTH) return false;
+    if (meaningfulWordCount(post.content) < MIN_MEANINGFUL_WORDS) return false;
     return tokenize(post.content).some((token) => queryTermSet.has(token));
   });
 }
