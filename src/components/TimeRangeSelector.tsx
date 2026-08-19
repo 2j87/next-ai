@@ -40,6 +40,11 @@ function TimeRangeSelector({
               onChange={() => onChange(option.value)}
               aria-label={option.label}
             />
+            {option.value === 'custom' && (
+              <span className={`material-symbols-outlined ${styles.optionIcon}`} aria-hidden="true">
+                calendar_today
+              </span>
+            )}
             {option.label}
           </label>
         ))}

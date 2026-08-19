@@ -40,6 +40,10 @@
   height: 14px;
 }
 
+.optionIcon {
+  font-size: 16px;
+}
+
 .customRange {
   display: flex;
   flex-wrap: wrap;

@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Logo from '../components/Logo';
 import SearchBar from '../components/SearchBar';
 import TimeRangeSelector from '../components/TimeRangeSelector';
 import { addHistoryEntry } from '../services/historyService';
@@ -35,7 +36,11 @@ function Home() {
 
   return (
     <main className={styles.page}>
-      <h1 className={styles.title}>NextAI</h1>
+      <Logo className={styles.heroLogo} />
+      <h1 className={styles.title}>Gündemi 30 saniyede yakala</h1>
+      <p className={styles.subtitle}>
+        En önemli gelişmeleri yapay zeka ile özetle, zaman kazan.
+      </p>
       <form className={styles.form} onSubmit={handleSubmit}>
         <SearchBar value={keyword} onChange={setKeyword} />
         <TimeRangeSelector
@@ -46,10 +51,10 @@ function Home() {
           onStartDateChange={setStartDate}
           onEndDateChange={setEndDate}
         />
-        <button type="submit" className={styles.submit} aria-label="Aramayı başlat">
-          Ara
-        </button>
       </form>
+      <p className={styles.footerNote}>
+        NextAI, yalnızca gerçek sosyal paylaşımlarını kaynak alır
+      </p>
     </main>
   );
 }
