@@ -48,10 +48,9 @@ function App() {
               className={({ isActive }) => `${styles.navItem} ${isActive ? styles.navItemActive : ''}`}
               aria-label="Arama sayfasına git"
             >
-              <svg className={styles.navIcon} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-              </svg>
+              <span className={styles.navIconWrap}>
+                <span className="material-symbols-outlined" aria-hidden="true">search</span>
+              </span>
               <span className={styles.navLabel}>Ara</span>
             </NavLink>
             <NavLink
@@ -59,10 +58,9 @@ function App() {
               className={({ isActive }) => `${styles.navItem} ${isActive ? styles.navItemActive : ''}`}
               aria-label="Arama geçmişi"
             >
-              <svg className={styles.navIcon} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
-                <polyline points="12 7 12 12 16 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+              <span className={styles.navIconWrap}>
+                <span className="material-symbols-outlined" aria-hidden="true">history</span>
+              </span>
               <span className={styles.navLabel}>Geçmiş</span>
             </NavLink>
           </div>
@@ -73,7 +71,11 @@ function App() {
             onClick={toggleTheme}
             aria-label={theme === 'light' ? 'Karanlık moda geç' : 'Aydınlık moda geç'}
           >
-            <span aria-hidden="true">{theme === 'light' ? '🌙' : '☀️'}</span>
+            <span className={styles.navIconWrap}>
+              <span className="material-symbols-outlined" aria-hidden="true">
+                {theme === 'light' ? 'dark_mode' : 'light_mode'}
+              </span>
+            </span>
             <span className={styles.navLabel}>
               {theme === 'light' ? 'Karanlık mod' : 'Aydınlık mod'}
             </span>

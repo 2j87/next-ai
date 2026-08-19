@@ -37,10 +37,7 @@ function Home() {
   return (
     <main className={styles.page}>
       <Logo className={styles.heroLogo} />
-      <h1 className={styles.title}>Gündemi 30 saniyede yakala</h1>
-      <p className={styles.subtitle}>
-        En önemli gelişmeleri yapay zeka ile özetle, zaman kazan.
-      </p>
+      <h1 className={styles.title}>Gündemi yakala</h1>
       <form className={styles.form} onSubmit={handleSubmit}>
         <SearchBar value={keyword} onChange={setKeyword} />
         <TimeRangeSelector

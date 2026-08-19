@@ -68,10 +68,11 @@
   font-weight: 700;
 }
 
-.navIcon {
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
+.navIconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
 }
 
 .navLabel {
@@ -146,16 +147,25 @@
 
   .navItem {
     flex-direction: column;
-    gap: 2px;
-    padding: var(--space-1) var(--space-3);
-    font-size: 11px;
+    gap: 4px;
+    padding: var(--space-1) var(--space-2);
+    font-size: 10px;
+  }
+
+  .navIconWrap {
+    padding: 4px 20px;
+    transition: background 0.15s ease;
+  }
+
+  .navItemActive .navIconWrap {
+    background: color-mix(in srgb, var(--color-accent) 20%, transparent);
   }
 
   .themeToggle {
     margin-top: 0;
     flex-direction: column;
-    gap: 2px;
-    padding: var(--space-1) var(--space-3);
-    font-size: 11px;
+    gap: 4px;
+    padding: var(--space-1) var(--space-2);
+    font-size: 10px;
   }
 }
