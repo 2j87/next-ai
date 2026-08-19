@@ -34,8 +34,8 @@
 }
 
 .option:has(input:checked) {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
+  background: var(--gradient-accent);
+  border-color: transparent;
   color: #ffffff;
 }
 

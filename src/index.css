@@ -11,6 +11,7 @@
   --gradient-title: linear-gradient(135deg, #dbeafe 0%, #60a5fa 45%, #3b82f6 100%);
   --gradient-logo-from: #60a5fa;
   --gradient-logo-to: #3b82f6;
+  --gradient-accent: linear-gradient(90deg, #33c7dd 0%, #3548ff 100%);
   color-scheme: dark;
 
   --radius-pill: 9999px;
