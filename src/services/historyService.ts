@@ -23,3 +23,12 @@ export function addHistoryEntry(query: SearchQuery): void {
   const updated = [entry, ...getHistory()].slice(0, 20);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
 }
+
+export function deleteHistoryEntry(id: string): void {
+  const updated = getHistory().filter((entry) => entry.id !== id);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+}
+
+export function clearHistory(): void {
+  localStorage.removeItem(STORAGE_KEY);
+}
