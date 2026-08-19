@@ -40,14 +40,6 @@ function App() {
           <Logo className={styles.logoImg} />
         </Link>
 
-        <div className={styles.profilePlaceholder} aria-hidden="true">
-          <span className={styles.profileAvatar}>
-            <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>
-              person
-            </span>
-          </span>
-        </div>
-
         <div className={styles.navBottomGroup}>
           <div className={styles.navItems}>
             <NavLink

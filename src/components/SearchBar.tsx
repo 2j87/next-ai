@@ -22,6 +22,7 @@ function SearchBar({ value, onChange }: SearchBarProps) {
         onChange={(e) => onChange(e.target.value)}
         placeholder="Ne hakkında bilgi almak istersin?"
         aria-label="Konu veya anahtar kelime ara"
+        required
       />
       <button type="submit" className={styles.submitButton} aria-label="Aramayı başlat">
         <span className="material-symbols-outlined fill" aria-hidden="true">

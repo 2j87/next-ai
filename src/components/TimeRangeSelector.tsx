@@ -61,6 +61,7 @@ function TimeRangeSelector({
               value={startDate}
               onChange={(e) => onStartDateChange(e.target.value)}
               aria-label="Başlangıç tarihi"
+              required
             />
           </div>
           <div className={styles.dateField}>
@@ -72,6 +73,7 @@ function TimeRangeSelector({
               value={endDate}
               onChange={(e) => onEndDateChange(e.target.value)}
               aria-label="Bitiş tarihi"
+              required
             />
           </div>
         </div>
