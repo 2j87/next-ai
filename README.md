@@ -1,8 +1,12 @@
 # NextAI
 
-Nsosyal'daki gönderileri arayıp AI ile özetleyen bir arama arayüzü. Şu an için
-backend yok, tüm veriler `src/data` altındaki mock JSON dosyalarından geliyor
-ve `src/services/mockDataService.ts` gerçek bir API çağrısı gibi davranıyor.
+Nsosyal'daki gönderileri arayıp AI ile özetleyen bir arama arayüzü.
+Nsosyal'ın kendi API'si henüz herkese açık olmadığı için, gönderi arama şu an
+gerçek ama geçici bir alternatif olarak halka açık bir Mastodon sunucusuna
+(`mastodon.social`, hashtag zaman tüneli) bağlanıyor — Nsosyal Mastodon uyumlu
+olduğu için mimari aynı kalacak, ileride sadece API adresi değişecek. Özet
+çıkarma kısmı henüz yapay zeka kullanmıyor, basit bir yer tutucu metin
+üretiyor (`src/services/postService.ts`).
 
 ## Kurulum
 
@@ -14,11 +18,15 @@ npm run dev
 ## Nasıl çalışıyor
 
 - Ana sayfada bir konu/anahtar kelime ve zaman aralığı seçip aranıyor
+- Arama, girilen kelimeyi hashtag'e çevirip Mastodon'un genel zaman
+  tünelinden gerçek gönderileri çekiyor (kimlik doğrulama gerekmiyor)
 - Arama iki aşamalı bir yükleme durumundan geçiyor (gönderiler toplanıyor →
-  özet oluşturuluyor), gerçekte ikisi de `mockDataService` içinde
-  `setTimeout` ile simüle ediliyor
+  özet oluşturuluyor); ilk aşama gerçek ağ isteği, ikinci aşama şimdilik
+  yapay bir gecikmeyle simüle ediliyor
 - Sonuç sayfasında özet metni, içindeki `[1]` `[2]` gibi referans
   numaraları tıklanabilir ve altındaki kaynak kartına gidiyor
+- Gönderi bulunamazsa veya istek başarısız olursa buna göre bir mesaj
+  gösteriliyor
 - Her arama `localStorage`'a kaydediliyor, Geçmiş sayfasından tekrar
   çalıştırılabiliyor
 
@@ -28,8 +36,7 @@ npm run dev
 src/
   components/   tekil UI parçaları (SearchBar, SourceCard, vb.)
   pages/        route'lara bağlı sayfalar (Home, Results, History)
-  services/     mock veri servisi + arama geçmişi
-  data/         mock gönderiler ve örnek özet
+  services/     gönderi servisi + arama geçmişi
   types.ts      ortak tip tanımları
 ```
 

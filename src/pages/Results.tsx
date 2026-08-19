@@ -3,11 +3,11 @@ import { useSearchParams } from 'react-router-dom';
 import LoadingIndicator from '../components/LoadingIndicator';
 import SummaryDisplay from '../components/SummaryDisplay';
 import SourceCard from '../components/SourceCard';
-import { fetchRelevantPosts, generateSummary } from '../services/mockDataService';
+import { fetchRelevantPosts, generateSummary } from '../services/postService';
 import type { SearchQuery, SummaryResult, TimeRangeOption } from '../types';
 import styles from './Results.module.css';
 
-type Phase = 'collecting' | 'summarizing' | 'done';
+type Phase = 'collecting' | 'summarizing' | 'done' | 'error';
 
 function Results() {
   const [searchParams] = useSearchParams();
@@ -25,16 +25,20 @@ function Results() {
     let cancelled = false;
 
     async function run() {
-      setPhase('collecting');
-      await fetchRelevantPosts(query);
-      if (cancelled) return;
+      try {
+        setPhase('collecting');
+        const posts = await fetchRelevantPosts(query);
+        if (cancelled) return;
 
-      setPhase('summarizing');
-      const result = await generateSummary(query);
-      if (cancelled) return;
+        setPhase('summarizing');
+        const result = await generateSummary(query, posts);
+        if (cancelled) return;
 
-      setSummary(result);
-      setPhase('done');
+        setSummary(result);
+        setPhase('done');
+      } catch {
+        if (!cancelled) setPhase('error');
+      }
     }
 
     run();
@@ -50,6 +54,15 @@ function Results() {
 
   if (phase === 'summarizing') {
     return <LoadingIndicator message="Özet oluşturuluyor..." />;
+  }
+
+  if (phase === 'error') {
+    return (
+      <main className={styles.page}>
+        <h1 className={styles.title}>Sonuçlar</h1>
+        <p>Gönderiler alınamadı, lütfen tekrar dene.</p>
+      </main>
+    );
   }
 
   return (
