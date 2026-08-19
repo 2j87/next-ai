@@ -2,7 +2,8 @@ import { useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchBar from '../components/SearchBar';
 import TimeRangeSelector from '../components/TimeRangeSelector';
-import type { TimeRangeOption } from '../types';
+import { addHistoryEntry } from '../services/historyService';
+import type { SearchQuery, TimeRangeOption } from '../types';
 
 function Home() {
   const [keyword, setKeyword] = useState('');
@@ -13,6 +14,14 @@ function Home() {
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
+
+    const query: SearchQuery = { keyword, timeRange };
+    if (timeRange === 'custom') {
+      query.startDate = startDate;
+      query.endDate = endDate;
+    }
+
+    addHistoryEntry(query);
 
     const params = new URLSearchParams({ keyword, timeRange });
     if (timeRange === 'custom') {
