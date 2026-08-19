@@ -1,0 +1,13 @@
+{
+  "keyword": "gündem",
+  "text": "Bugün gündemde öne çıkan başlıklara bakıldığında şehir trafiği ve hava durumu ön planda. Büyükşehirde sabah saatlerinde yoğun trafik uyarısı yapıldı[1], hafta sonuna doğru ise sıcaklıklarda birkaç derecelik düşüş bekleniyor[2]. Teknoloji tarafında yeni tanıtılan telefon modeli pil ömrüyle dikkat çekerken[3], yerli bir yazılım şirketinin yapay zeka destekli asistan ürünü için beta kayıtları açıldı[4]. Spor gündeminde bir transfer haberi taraftar arasında tartışma yarattı[5]. Ekonomi tarafında aylık enflasyon verileri piyasa beklentisiyle uyumlu geldi[6], deprem sonrası başlatılan bina denetimlerinin ilk sonuçları da paylaşıldı[7].",
+  "references": [
+    { "number": 1, "postId": "p13" },
+    { "number": 2, "postId": "p14" },
+    { "number": 3, "postId": "p7" },
+    { "number": 4, "postId": "p8" },
+    { "number": 5, "postId": "p1" },
+    { "number": 6, "postId": "p16" },
+    { "number": 7, "postId": "p18" }
+  ]
+}
