@@ -1,30 +1,34 @@
 :root {
-  --color-bg: #1b1e26;
-  --color-surface: #20232c;
-  --color-border: #2d3240;
-  --color-border-strong: #40475a;
+  --color-bg: #0b1326;
+  --color-surface: #1e293b;
+  --color-border: #334155;
+  --color-border-strong: #475569;
   --color-text: #f8fafc;
-  --color-text-muted: #8b93a1;
-  --color-accent: #1d4ed8;
-  --color-accent-hover: #2b5fe0;
-  --color-link: #1890ff;
-  --gradient-title: linear-gradient(135deg, #dbeafe 0%, #60a5fa 45%, #1890ff 100%);
+  --color-text-muted: #94a3b8;
+  --color-accent: #3b82f6;
+  --color-accent-hover: #5b96f8;
+  --color-link: #3b82f6;
+  --gradient-title: linear-gradient(135deg, #dbeafe 0%, #60a5fa 45%, #3b82f6 100%);
   --gradient-logo-from: #60a5fa;
-  --gradient-logo-to: #1890ff;
+  --gradient-logo-to: #3b82f6;
   color-scheme: dark;
 
   --radius-pill: 9999px;
   --radius-md: 8px;
   --radius-sm: 6px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
 
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
   --space-4: 16px;
   --space-5: 24px;
+  --space-6: 32px;
 
   --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial,
     sans-serif;
+  --font-display: 'Playfair Display', Georgia, serif;
 
   font-family: var(--font-sans);
   color: var(--color-text);
@@ -35,45 +39,51 @@
 
 @media (prefers-color-scheme: light) {
   :root:not([data-theme='dark']) {
-    --color-bg: #ffffff;
-    --color-surface: #f5f7fa;
-    --color-border: #e2e5ea;
-    --color-border-strong: #c7ccd6;
-    --color-text: #101317;
-    --color-text-muted: #5b6370;
-    --color-link: #1d4ed8;
-    --gradient-title: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 60%, #0f3d99 100%);
+    --color-bg: #f7f9fb;
+    --color-surface: #eceef0;
+    --color-border: #e0e3e5;
+    --color-border-strong: #c6c6cd;
+    --color-text: #191c1e;
+    --color-text-muted: #45464d;
+    --color-accent: #0058be;
+    --color-accent-hover: #2170e4;
+    --color-link: #0058be;
+    --gradient-title: linear-gradient(135deg, #3b82f6 0%, #0058be 60%, #002e6a 100%);
     --gradient-logo-from: #3b82f6;
-    --gradient-logo-to: #0f3d99;
+    --gradient-logo-to: #0058be;
     color-scheme: light;
   }
 }
 
 :root[data-theme='light'] {
-  --color-bg: #ffffff;
-  --color-surface: #f5f7fa;
-  --color-border: #e2e5ea;
-  --color-border-strong: #c7ccd6;
-  --color-text: #101317;
-  --color-text-muted: #5b6370;
-  --color-link: #1d4ed8;
-  --gradient-title: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 60%, #0f3d99 100%);
+  --color-bg: #f7f9fb;
+  --color-surface: #eceef0;
+  --color-border: #e0e3e5;
+  --color-border-strong: #c6c6cd;
+  --color-text: #191c1e;
+  --color-text-muted: #45464d;
+  --color-accent: #0058be;
+  --color-accent-hover: #2170e4;
+  --color-link: #0058be;
+  --gradient-title: linear-gradient(135deg, #3b82f6 0%, #0058be 60%, #002e6a 100%);
   --gradient-logo-from: #3b82f6;
-  --gradient-logo-to: #0f3d99;
+  --gradient-logo-to: #0058be;
   color-scheme: light;
 }
 
 :root[data-theme='dark'] {
-  --color-bg: #1b1e26;
-  --color-surface: #20232c;
-  --color-border: #2d3240;
-  --color-border-strong: #40475a;
+  --color-bg: #0b1326;
+  --color-surface: #1e293b;
+  --color-border: #334155;
+  --color-border-strong: #475569;
   --color-text: #f8fafc;
-  --color-text-muted: #8b93a1;
-  --color-link: #1890ff;
-  --gradient-title: linear-gradient(135deg, #dbeafe 0%, #60a5fa 45%, #1890ff 100%);
+  --color-text-muted: #94a3b8;
+  --color-accent: #3b82f6;
+  --color-accent-hover: #5b96f8;
+  --color-link: #3b82f6;
+  --gradient-title: linear-gradient(135deg, #dbeafe 0%, #60a5fa 45%, #3b82f6 100%);
   --gradient-logo-from: #60a5fa;
-  --gradient-logo-to: #1890ff;
+  --gradient-logo-to: #3b82f6;
   color-scheme: dark;
 }
 
@@ -117,4 +127,16 @@ input,
 textarea {
   font-family: inherit;
   color: inherit;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  font-size: 24px;
+  line-height: 1;
+  vertical-align: middle;
+  user-select: none;
+}
+
+.material-symbols-outlined.fill {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
