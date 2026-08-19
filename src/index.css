@@ -9,6 +9,8 @@
   --color-accent-hover: #2b5fe0;
   --color-link: #1890ff;
   --gradient-title: linear-gradient(135deg, #dbeafe 0%, #60a5fa 45%, #1890ff 100%);
+  --gradient-logo-from: #60a5fa;
+  --gradient-logo-to: #1890ff;
   color-scheme: dark;
 
   --radius-pill: 9999px;
@@ -42,6 +44,8 @@
     --color-text-muted: #5b6370;
     --color-link: #1d4ed8;
     --gradient-title: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 60%, #0f3d99 100%);
+    --gradient-logo-from: #3b82f6;
+    --gradient-logo-to: #0f3d99;
     color-scheme: light;
   }
 }
@@ -55,6 +59,8 @@
   --color-text-muted: #5b6370;
   --color-link: #1d4ed8;
   --gradient-title: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 60%, #0f3d99 100%);
+  --gradient-logo-from: #3b82f6;
+  --gradient-logo-to: #0f3d99;
   color-scheme: light;
 }
 
@@ -67,6 +73,8 @@
   --color-text-muted: #8b93a1;
   --color-link: #1890ff;
   --gradient-title: linear-gradient(135deg, #dbeafe 0%, #60a5fa 45%, #1890ff 100%);
+  --gradient-logo-from: #60a5fa;
+  --gradient-logo-to: #1890ff;
   color-scheme: dark;
 }
 

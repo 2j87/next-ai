@@ -35,16 +35,6 @@
   display: block;
 }
 
-@media (prefers-color-scheme: light) {
-  :global(html:not([data-theme='dark'])) .logoImg {
-    filter: invert(1);
-  }
-}
-
-:global(html[data-theme='light']) .logoImg {
-  filter: invert(1);
-}
-
 .links {
   display: flex;
   gap: var(--space-2);
