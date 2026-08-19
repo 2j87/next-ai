@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route, Link, NavLink } from 'react-router-dom'
 import Home from './pages/Home'
 import Results from './pages/Results'
 import History from './pages/History'
@@ -33,8 +33,8 @@ function App() {
   }
 
   return (
-    <>
-      <nav className={styles.nav} aria-label="Ana menü">
+    <div className={styles.shell}>
+      <nav className={styles.sidebar} aria-label="Ana menü">
         <Link to="/" className={styles.logo} aria-label="NextAI ana sayfa">
           <svg
             viewBox="278.76 259.15 367.27 122.12"
@@ -54,30 +54,54 @@ function App() {
             />
           </svg>
         </Link>
-        <div className={styles.links}>
-          <Link to="/" className={styles.link} aria-label="Arama sayfasına git">
-            Ara
-          </Link>
-          <Link to="/gecmis" className={styles.link} aria-label="Arama geçmişi">
-            Geçmiş
-          </Link>
-          <button
-            type="button"
-            className={styles.themeToggle}
-            onClick={toggleTheme}
-            aria-label={theme === 'light' ? 'Karanlık moda geç' : 'Aydınlık moda geç'}
+
+        <div className={styles.navItems}>
+          <NavLink
+            to="/"
+            end
+            className={({ isActive }) => `${styles.navItem} ${isActive ? styles.navItemActive : ''}`}
+            aria-label="Arama sayfasına git"
           >
-            {theme === 'light' ? '🌙' : '☀️'}
-          </button>
+            <svg className={styles.navIcon} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+            <span className={styles.navLabel}>Ara</span>
+          </NavLink>
+          <NavLink
+            to="/gecmis"
+            className={({ isActive }) => `${styles.navItem} ${isActive ? styles.navItemActive : ''}`}
+            aria-label="Arama geçmişi"
+          >
+            <svg className={styles.navIcon} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
+              <polyline points="12 7 12 12 16 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <span className={styles.navLabel}>Geçmiş</span>
+          </NavLink>
         </div>
+
+        <button
+          type="button"
+          className={styles.themeToggle}
+          onClick={toggleTheme}
+          aria-label={theme === 'light' ? 'Karanlık moda geç' : 'Aydınlık moda geç'}
+        >
+          <span aria-hidden="true">{theme === 'light' ? '🌙' : '☀️'}</span>
+          <span className={styles.navLabel}>
+            {theme === 'light' ? 'Karanlık mod' : 'Aydınlık mod'}
+          </span>
+        </button>
       </nav>
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/sonuclar" element={<Results />} />
-        <Route path="/gecmis" element={<History />} />
-      </Routes>
-    </>
+      <div className={styles.content}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/sonuclar" element={<Results />} />
+          <Route path="/gecmis" element={<History />} />
+        </Routes>
+      </div>
+    </div>
   )
 }
 
