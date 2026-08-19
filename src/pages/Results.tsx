@@ -89,19 +89,21 @@ function Results() {
       {summary && (
         <>
           <SummaryDisplay text={summary.text} />
-          <section className={styles.sources} aria-label="Kaynaklar">
-            <h2 className={styles.sourcesHeading}>
-              <span className="material-symbols-outlined" aria-hidden="true">forum</span>
-              Kaynak Gönderiler
-            </h2>
-            {summary.references.map((ref) => {
-              const post = summary.posts.find((p) => p.id === ref.postId);
-              if (!post) return null;
-              return (
-                <SourceCard key={ref.postId} post={post} referenceNumber={ref.number} />
-              );
-            })}
-          </section>
+          {summary.references.length > 0 && (
+            <section className={styles.sources} aria-label="Kaynaklar">
+              <h2 className={styles.sourcesHeading}>
+                <span className="material-symbols-outlined" aria-hidden="true">forum</span>
+                Kaynak Gönderiler
+              </h2>
+              {summary.references.map((ref) => {
+                const post = summary.posts.find((p) => p.id === ref.postId);
+                if (!post) return null;
+                return (
+                  <SourceCard key={ref.postId} post={post} referenceNumber={ref.number} />
+                );
+              })}
+            </section>
+          )}
         </>
       )}
     </main>
