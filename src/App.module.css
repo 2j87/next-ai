@@ -34,6 +34,13 @@
   display: block;
 }
 
+.navBottomGroup {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
 .navItems {
   display: flex;
   flex-direction: column;
@@ -92,43 +99,63 @@
 
 @media (max-width: 768px) {
   .shell {
-    flex-direction: column;
+    display: block;
   }
 
   .sidebar {
-    width: 100%;
-    height: auto;
-    flex-direction: row;
-    align-items: center;
-    padding: var(--space-3) var(--space-4);
-    border-right: none;
-    border-bottom: 1px solid var(--color-border);
+    display: contents;
+  }
+
+  .content {
+    padding-top: 56px;
+    padding-bottom: 64px;
   }
 
   .logo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    justify-content: center;
     margin-bottom: 0;
     padding: 0;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    z-index: 20;
+  }
+
+  .navBottomGroup {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: var(--space-2) var(--space-3);
+    background: var(--color-bg);
+    border-top: 1px solid var(--color-border);
+    z-index: 20;
   }
 
   .navItems {
     flex-direction: row;
-    margin-left: auto;
-    gap: var(--space-1);
+    gap: var(--space-4);
   }
 
   .navItem {
-    padding: var(--space-2) var(--space-3);
-  }
-
-  .navLabel {
-    display: none;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--space-1) var(--space-3);
+    font-size: 11px;
   }
 
   .themeToggle {
     margin-top: 0;
-    width: 36px;
-    height: 36px;
-    padding: 0;
-    justify-content: center;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--space-1) var(--space-3);
+    font-size: 11px;
   }
 }
