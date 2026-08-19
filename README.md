@@ -1,32 +1,40 @@
-# React + TypeScript + Vite
+# NextAI
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Nsosyal'daki gönderileri arayıp AI ile özetleyen bir arama arayüzü. Şu an için
+backend yok, tüm veriler `src/data` altındaki mock JSON dosyalarından geliyor
+ve `src/services/mockDataService.ts` gerçek bir API çağrısı gibi davranıyor.
 
-Currently, two official plugins are available:
+## Kurulum
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Nasıl çalışıyor
+
+- Ana sayfada bir konu/anahtar kelime ve zaman aralığı seçip aranıyor
+- Arama iki aşamalı bir yükleme durumundan geçiyor (gönderiler toplanıyor →
+  özet oluşturuluyor), gerçekte ikisi de `mockDataService` içinde
+  `setTimeout` ile simüle ediliyor
+- Sonuç sayfasında özet metni, içindeki `[1]` `[2]` gibi referans
+  numaraları tıklanabilir ve altındaki kaynak kartına gidiyor
+- Her arama `localStorage`'a kaydediliyor, Geçmiş sayfasından tekrar
+  çalıştırılabiliyor
+
+## Klasör yapısı
+
+```
+src/
+  components/   tekil UI parçaları (SearchBar, SourceCard, vb.)
+  pages/        route'lara bağlı sayfalar (Home, Results, History)
+  services/     mock veri servisi + arama geçmişi
+  data/         mock gönderiler ve örnek özet
+  types.ts      ortak tip tanımları
+```
+
+## Tasarım
+
+Renk paleti ve genel görünüm Nsosyal'ın kendi arayüzünden alındı (koyu
+tema varsayılan, `#1D4ED8` vurgu rengi). Sağ üstteki buton ile açık temaya
+geçilebiliyor, tercih tarayıcıda saklanıyor.
