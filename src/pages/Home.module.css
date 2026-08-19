@@ -12,7 +12,13 @@
 }
 
 .title {
-  font-size: 36px;
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 700;
+  background: var(--gradient-title);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .form {
