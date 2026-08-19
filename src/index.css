@@ -25,7 +25,6 @@
 
   --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial,
     sans-serif;
-  --font-display: 'Quicksand', var(--font-sans);
 
   font-family: var(--font-sans);
   color: var(--color-text);

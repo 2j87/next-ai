@@ -12,9 +12,10 @@
 }
 
 .title {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: 40px;
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   background: var(--gradient-title);
   -webkit-background-clip: text;
   background-clip: text;
