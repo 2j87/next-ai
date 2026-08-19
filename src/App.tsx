@@ -36,7 +36,7 @@ function App() {
     <>
       <nav className={styles.nav} aria-label="Ana menü">
         <Link to="/" className={styles.logo} aria-label="NextAI ana sayfa">
-          NextAI
+          <img src="/logo.svg" alt="NextAI" className={styles.logoImg} />
         </Link>
         <div className={styles.links}>
           <Link to="/" className={styles.link} aria-label="Arama sayfasına git">

@@ -25,9 +25,24 @@
 }
 
 .logo {
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+}
+
+.logoImg {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+
+@media (prefers-color-scheme: light) {
+  :global(html:not([data-theme='dark'])) .logoImg {
+    filter: invert(1);
+  }
+}
+
+:global(html[data-theme='light']) .logoImg {
+  filter: invert(1);
 }
 
 .links {
