@@ -38,3 +38,17 @@
 .submit:focus-visible {
   background: var(--color-accent-hover);
 }
+
+@media (max-width: 480px) {
+  .page {
+    padding: var(--space-4) var(--space-3);
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .submit {
+    width: 100%;
+  }
+}

@@ -10,6 +10,20 @@
   z-index: 10;
 }
 
+@media (max-width: 640px) {
+  .nav {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .links {
+    gap: var(--space-1);
+  }
+
+  .link {
+    padding: var(--space-2) var(--space-3);
+  }
+}
+
 .logo {
   font-size: 20px;
   font-weight: 700;
