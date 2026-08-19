@@ -1,0 +1,22 @@
+.summary {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}
+
+.text {
+  margin: 0;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+.refLink {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.refLink:hover,
+.refLink:focus-visible {
+  text-decoration: underline;
+}

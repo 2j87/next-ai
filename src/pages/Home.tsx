@@ -4,6 +4,7 @@ import SearchBar from '../components/SearchBar';
 import TimeRangeSelector from '../components/TimeRangeSelector';
 import { addHistoryEntry } from '../services/historyService';
 import type { SearchQuery, TimeRangeOption } from '../types';
+import styles from './Home.module.css';
 
 function Home() {
   const [keyword, setKeyword] = useState('');
@@ -33,9 +34,9 @@ function Home() {
   }
 
   return (
-    <main>
-      <h1>NextAI</h1>
-      <form onSubmit={handleSubmit}>
+    <main className={styles.page}>
+      <h1 className={styles.title}>NextAI</h1>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <SearchBar value={keyword} onChange={setKeyword} />
         <TimeRangeSelector
           value={timeRange}
@@ -45,7 +46,9 @@ function Home() {
           onStartDateChange={setStartDate}
           onEndDateChange={setEndDate}
         />
-        <button type="submit">Ara</button>
+        <button type="submit" className={styles.submit}>
+          Ara
+        </button>
       </form>
     </main>
   );

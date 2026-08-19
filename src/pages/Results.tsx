@@ -5,6 +5,7 @@ import SummaryDisplay from '../components/SummaryDisplay';
 import SourceCard from '../components/SourceCard';
 import { fetchRelevantPosts, generateSummary } from '../services/mockDataService';
 import type { SearchQuery, SummaryResult, TimeRangeOption } from '../types';
+import styles from './Results.module.css';
 
 type Phase = 'collecting' | 'summarizing' | 'done';
 
@@ -52,12 +53,12 @@ function Results() {
   }
 
   return (
-    <main>
-      <h1>Sonuçlar</h1>
+    <main className={styles.page}>
+      <h1 className={styles.title}>Sonuçlar</h1>
       {summary && (
         <>
           <SummaryDisplay text={summary.text} />
-          <section aria-label="Kaynaklar">
+          <section className={styles.sources} aria-label="Kaynaklar">
             {summary.references.map((ref) => {
               const post = summary.posts.find((p) => p.id === ref.postId);
               if (!post) return null;

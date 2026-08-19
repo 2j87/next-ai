@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import HistoryList from '../components/HistoryList';
 import { getHistory } from '../services/historyService';
 import type { HistoryEntry } from '../types';
+import styles from './History.module.css';
 
 function History() {
   const navigate = useNavigate();
@@ -19,8 +20,8 @@ function History() {
   }
 
   return (
-    <main>
-      <h1>Geçmiş</h1>
+    <main className={styles.page}>
+      <h1 className={styles.title}>Geçmiş</h1>
       <HistoryList entries={entries} onSelect={handleSelect} />
     </main>
   );

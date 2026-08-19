@@ -1,4 +1,5 @@
 import type { TimeRangeOption } from '../types';
+import styles from './TimeRangeSelector.module.css';
 
 interface TimeRangeSelectorProps {
   value: TimeRangeOption;
@@ -25,39 +26,48 @@ function TimeRangeSelector({
   onEndDateChange,
 }: TimeRangeSelectorProps) {
   return (
-    <fieldset>
-      <legend>Zaman aralığı</legend>
-      {options.map((option) => (
-        <label key={option.value}>
-          <input
-            type="radio"
-            name="time-range"
-            value={option.value}
-            checked={value === option.value}
-            onChange={() => onChange(option.value)}
-          />
-          {option.label}
-        </label>
-      ))}
+    <fieldset className={styles.fieldset}>
+      <legend className={styles.legend}>Zaman aralığı</legend>
+      <div className={styles.options}>
+        {options.map((option) => (
+          <label key={option.value} className={styles.option}>
+            <input
+              type="radio"
+              name="time-range"
+              className={styles.radio}
+              value={option.value}
+              checked={value === option.value}
+              onChange={() => onChange(option.value)}
+            />
+            {option.label}
+          </label>
+        ))}
+      </div>
 
       {value === 'custom' && (
-        <div>
-          <label htmlFor="start-date">Başlangıç</label>
-          <input
-            id="start-date"
-            type="date"
-            value={startDate}
-            onChange={(e) => onStartDateChange(e.target.value)}
-            aria-label="Başlangıç tarihi"
-          />
-          <label htmlFor="end-date">Bitiş</label>
-          <input
-            id="end-date"
-            type="date"
-            value={endDate}
-            onChange={(e) => onEndDateChange(e.target.value)}
-            aria-label="Bitiş tarihi"
-          />
+        <div className={styles.customRange}>
+          <div className={styles.dateField}>
+            <label htmlFor="start-date">Başlangıç</label>
+            <input
+              id="start-date"
+              type="date"
+              className={styles.dateInput}
+              value={startDate}
+              onChange={(e) => onStartDateChange(e.target.value)}
+              aria-label="Başlangıç tarihi"
+            />
+          </div>
+          <div className={styles.dateField}>
+            <label htmlFor="end-date">Bitiş</label>
+            <input
+              id="end-date"
+              type="date"
+              className={styles.dateInput}
+              value={endDate}
+              onChange={(e) => onEndDateChange(e.target.value)}
+              aria-label="Bitiş tarihi"
+            />
+          </div>
         </div>
       )}
     </fieldset>

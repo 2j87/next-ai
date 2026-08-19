@@ -1,4 +1,5 @@
 import type { HistoryEntry } from '../types';
+import styles from './HistoryList.module.css';
 
 interface HistoryListProps {
   entries: HistoryEntry[];
@@ -14,21 +15,26 @@ const timeRangeLabels: Record<string, string> = {
 
 function HistoryList({ entries, onSelect }: HistoryListProps) {
   if (entries.length === 0) {
-    return <p>Henüz bir arama geçmişin yok.</p>;
+    return <p className={styles.empty}>Henüz bir arama geçmişin yok.</p>;
   }
 
   return (
-    <ul>
+    <ul className={styles.list}>
       {entries.map((entry) => (
-        <li key={entry.id}>
+        <li key={entry.id} className={styles.item}>
           <button
             type="button"
+            className={styles.button}
             onClick={() => onSelect(entry)}
             aria-label={`"${entry.query.keyword}" aramasını tekrar yap`}
           >
-            <span>{entry.query.keyword || '(anahtar kelime yok)'}</span>
-            <span>{timeRangeLabels[entry.query.timeRange]}</span>
-            <span>{new Date(entry.searchedAt).toLocaleString('tr-TR')}</span>
+            <span className={styles.keyword}>
+              {entry.query.keyword || '(anahtar kelime yok)'}
+            </span>
+            <span className={styles.meta}>
+              {timeRangeLabels[entry.query.timeRange]} ·{' '}
+              {new Date(entry.searchedAt).toLocaleString('tr-TR')}
+            </span>
           </button>
         </li>
       ))}

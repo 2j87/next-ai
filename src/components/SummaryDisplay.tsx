@@ -1,3 +1,5 @@
+import styles from './SummaryDisplay.module.css';
+
 interface SummaryDisplayProps {
   text: string;
 }
@@ -6,8 +8,8 @@ function SummaryDisplay({ text }: SummaryDisplayProps) {
   const parts = text.split(/(\[\d+\])/g);
 
   return (
-    <section aria-label="Özet">
-      <p>
+    <section className={styles.summary} aria-label="Özet">
+      <p className={styles.text}>
         {parts.map((part, index) => {
           const match = part.match(/^\[(\d+)\]$/);
           if (!match) {
@@ -20,6 +22,7 @@ function SummaryDisplay({ text }: SummaryDisplayProps) {
             <a
               key={index}
               href={`#kaynak-${number}`}
+              className={styles.refLink}
               aria-label={`${number} numaralı kaynağa git`}
             >
               [{number}]

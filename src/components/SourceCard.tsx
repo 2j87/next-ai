@@ -1,4 +1,5 @@
 import type { Post } from '../types';
+import styles from './SourceCard.module.css';
 
 interface SourceCardProps {
   post: Post;
@@ -7,17 +8,21 @@ interface SourceCardProps {
 
 function SourceCard({ post, referenceNumber }: SourceCardProps) {
   return (
-    <article id={`kaynak-${referenceNumber}`}>
-      <header>
-        <span>{post.username}</span>
+    <article id={`kaynak-${referenceNumber}`} className={styles.card}>
+      <header className={styles.header}>
+        <span className={styles.username}>{post.username}</span>
         {post.isVerified && (
-          <span title="Doğrulanmış Kaynak" aria-label="Doğrulanmış Kaynak">
+          <span
+            className={styles.badge}
+            title="Doğrulanmış Kaynak"
+            aria-label="Doğrulanmış Kaynak"
+          >
             ✔ Doğrulanmış Kaynak
           </span>
         )}
       </header>
-      <p>{post.content}</p>
-      <footer>
+      <p className={styles.content}>{post.content}</p>
+      <footer className={styles.footer}>
         <time dateTime={post.timestamp}>
           {new Date(post.timestamp).toLocaleString('tr-TR')}
         </time>
@@ -25,6 +30,7 @@ function SourceCard({ post, referenceNumber }: SourceCardProps) {
           href={post.url}
           target="_blank"
           rel="noreferrer"
+          className={styles.link}
           aria-label={`${post.username} kullanıcısının gönderisine git`}
         >
           Gönderiye Git

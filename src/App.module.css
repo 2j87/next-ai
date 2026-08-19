@@ -1,0 +1,35 @@
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  background: var(--color-bg);
+  z-index: 10;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.links {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.link {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.link:hover,
+.link:focus-visible {
+  background: var(--color-surface);
+  color: var(--color-text);
+}
