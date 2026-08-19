@@ -1,4 +1,4 @@
-import type { HistoryEntry } from '../types';
+import { TIME_RANGE_LABELS, type HistoryEntry } from '../types';
 import styles from './HistoryList.module.css';
 
 interface HistoryListProps {
@@ -6,13 +6,6 @@ interface HistoryListProps {
   onSelect: (entry: HistoryEntry) => void;
   onDelete: (id: string) => void;
 }
-
-const timeRangeLabels: Record<string, string> = {
-  today: 'Bugün',
-  '3days': 'Son 3 Gün',
-  week: 'Son 1 Hafta',
-  custom: 'Özel Tarih Aralığı',
-};
 
 function HistoryList({ entries, onSelect, onDelete }: HistoryListProps) {
   if (entries.length === 0) {
@@ -37,7 +30,7 @@ function HistoryList({ entries, onSelect, onDelete }: HistoryListProps) {
                 {entry.query.keyword || '(anahtar kelime yok)'}
               </span>
               <span className={styles.meta}>
-                {timeRangeLabels[entry.query.timeRange]} ·{' '}
+                {TIME_RANGE_LABELS[entry.query.timeRange]} ·{' '}
                 {new Date(entry.searchedAt).toLocaleString('tr-TR')}
               </span>
             </span>

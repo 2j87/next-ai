@@ -9,6 +9,12 @@ function SummaryDisplay({ text }: SummaryDisplayProps) {
 
   return (
     <section className={styles.summary} aria-label="Özet">
+      <div className={styles.summaryHeader}>
+        <span className="material-symbols-outlined fill" aria-hidden="true">
+          auto_awesome
+        </span>
+        <span className={styles.summaryLabel}>AI Özeti</span>
+      </div>
       <p className={styles.text}>
         {parts.map((part, index) => {
           const match = part.match(/^\[(\d+)\]$/);
@@ -22,10 +28,10 @@ function SummaryDisplay({ text }: SummaryDisplayProps) {
             <a
               key={index}
               href={`#kaynak-${number}`}
-              className={styles.refLink}
+              className={styles.refBadge}
               aria-label={`${number} numaralı kaynağa git`}
             >
-              [{number}]
+              {number}
             </a>
           );
         })}

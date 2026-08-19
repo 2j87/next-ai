@@ -1,4 +1,4 @@
-import type { TimeRangeOption } from '../types';
+import { TIME_RANGE_LABELS, type TimeRangeOption } from '../types';
 import styles from './TimeRangeSelector.module.css';
 
 interface TimeRangeSelectorProps {
@@ -10,12 +10,7 @@ interface TimeRangeSelectorProps {
   onEndDateChange: (value: string) => void;
 }
 
-const options: { value: TimeRangeOption; label: string }[] = [
-  { value: 'today', label: 'Bugün' },
-  { value: '3days', label: 'Son 3 Gün' },
-  { value: 'week', label: 'Son 1 Hafta' },
-  { value: 'custom', label: 'Özel Tarih Aralığı' },
-];
+const optionOrder: TimeRangeOption[] = ['today', '3days', 'week', 'custom'];
 
 function TimeRangeSelector({
   value,
@@ -29,23 +24,23 @@ function TimeRangeSelector({
     <fieldset className={styles.fieldset}>
       <legend className={styles.legend}>Zaman aralığı</legend>
       <div className={styles.options}>
-        {options.map((option) => (
-          <label key={option.value} className={styles.option}>
+        {optionOrder.map((option) => (
+          <label key={option} className={styles.option}>
             <input
               type="radio"
               name="time-range"
               className={styles.radio}
-              value={option.value}
-              checked={value === option.value}
-              onChange={() => onChange(option.value)}
-              aria-label={option.label}
+              value={option}
+              checked={value === option}
+              onChange={() => onChange(option)}
+              aria-label={TIME_RANGE_LABELS[option]}
             />
-            {option.value === 'custom' && (
+            {option === 'custom' && (
               <span className={`material-symbols-outlined ${styles.optionIcon}`} aria-hidden="true">
                 calendar_today
               </span>
             )}
-            {option.label}
+            {TIME_RANGE_LABELS[option]}
           </label>
         ))}
       </div>

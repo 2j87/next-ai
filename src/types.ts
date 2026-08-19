@@ -9,6 +9,13 @@ export interface Post {
 
 export type TimeRangeOption = 'today' | '3days' | 'week' | 'custom';
 
+export const TIME_RANGE_LABELS: Record<TimeRangeOption, string> = {
+  today: 'Bugün',
+  '3days': 'Son 3 Gün',
+  week: 'Son 1 Hafta',
+  custom: 'Özel Tarih Aralığı',
+};
+
 export interface SearchQuery {
   keyword: string;
   timeRange: TimeRangeOption;
