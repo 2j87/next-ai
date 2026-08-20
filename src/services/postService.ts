@@ -1,4 +1,5 @@
 import type { Post, SearchQuery, SummaryReference, SummaryResult } from '../types';
+import { buildLlmInput } from './llmInput';
 import { rankPosts } from './ranking';
 
 const HASHTAG_TIMELINE_URL = 'https://mastodon.social/api/v1/timelines/tag';
@@ -130,6 +131,11 @@ export async function generateSummary(query: SearchQuery, posts: Post[]): Promis
         number: index + 1,
         postId: post.id,
     }));
+
+    // The normalized document the summarization LLM will read once real
+    // AI summarization replaces the placeholder text below.
+    const llmInput = buildLlmInput(posts);
+    console.log('[llmInput]', llmInput);
 
     const marks = references.map((ref) => `[${ref.number}]`).join('');
     const text = `"${query.keyword}" konusuyla ilgili ${posts.length} gönderi bulundu ${marks}. Özet çıkarma özelliği yakında eklenecek, şimdilik gönderiler bulundukları sırayla listeleniyor.`;

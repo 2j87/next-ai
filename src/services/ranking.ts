@@ -1,4 +1,5 @@
 import type { Post } from '../types';
+import { stripHashtagsAndMentions, stripUrls } from './textUtils';
 
 const MIN_MEANINGFUL_WORDS = 8;
 const BM25_K1 = 1.5;
@@ -6,14 +7,6 @@ const BM25_B = 0.75;
 
 function turkishLower(text: string): string {
     return text.replace(/İ/g, 'i').replace(/I/g, 'ı').toLowerCase();
-}
-
-function stripUrls(text: string): string {
-    return text.replace(/https?:\/\/\S+/g, ' ');
-}
-
-function stripHashtagsAndMentions(text: string): string {
-    return text.replace(/[#@]\S+/g, ' ');
 }
 
 // Longest-match-first, single-pass suffix stripping for Turkish case/plural/
