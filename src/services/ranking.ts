@@ -16,8 +16,36 @@ function stripHashtagsAndMentions(text: string): string {
     return text.replace(/[#@]\S+/g, ' ');
 }
 
+// Longest-match-first, single-pass suffix stripping for Turkish case/plural/
+// possessive endings. This is a heuristic light stemmer, not a real
+// morphological analyzer: it deliberately omits the bare 2-letter locative
+// suffixes ("de"/"da"/"te"/"ta") because they collide with roots that end in
+// the same consonant + vowel (e.g. "teknofeste" would wrongly lose the "st").
+// Applied identically to query and document tokens, so what matters is
+// consistency, not linguistic correctness — occasional over-stemming of a
+// root word is harmless since both sides collapse to the same stem.
+const TURKISH_SUFFIXES = [
+    'lardan', 'lerden', 'larda', 'lerde', 'ların', 'lerin', 'ları', 'leri',
+    'dan', 'den', 'tan', 'ten', 'nın', 'nin', 'nun', 'nün', 'lar', 'ler',
+    'ın', 'in', 'un', 'ün', 'ya', 'ye', 'nı', 'ni', 'nu', 'nü',
+    'yı', 'yi', 'yu', 'yü', 'sı', 'si', 'su', 'sü',
+    'a', 'e', 'ı', 'i', 'u', 'ü',
+].sort((a, b) => b.length - a.length);
+
+const MIN_STEM_LENGTH = 3;
+
+function stemTurkish(word: string): string {
+    for (const suffix of TURKISH_SUFFIXES) {
+        if (word.length - suffix.length >= MIN_STEM_LENGTH && word.endsWith(suffix)) {
+            return word.slice(0, -suffix.length);
+        }
+    }
+    return word;
+}
+
 function tokenize(text: string): string[] {
-    return turkishLower(stripUrls(text)).match(/[\p{L}\p{N}]+/gu) ?? [];
+    const words = turkishLower(stripUrls(text)).match(/[\p{L}\p{N}]+/gu) ?? [];
+    return words.map(stemTurkish);
 }
 
 // A syndicated headline ("X gençleri – Erdoğan X gençlerine" + link) can be
