@@ -133,9 +133,16 @@ export async function generateSummary(query: SearchQuery, posts: Post[]): Promis
     }));
 
     // The normalized document the summarization LLM will read once real
-    // AI summarization replaces the placeholder text below.
+    // AI summarization replaces the placeholder text below. Saved to disk
+    // via the dev-server-only /api/save-llm-input endpoint (see
+    // vite.config.ts) so it can be inspected outside the browser.
     const llmInput = buildLlmInput(posts);
-    console.log('[llmInput]', llmInput);
+    try {
+        await fetch('/api/save-llm-input', { method: 'POST', body: llmInput });
+    } catch {
+        // Dev-only convenience; failing silently keeps this from breaking
+        // the summary flow in production, where the endpoint doesn't exist.
+    }
 
     const marks = references.map((ref) => `[${ref.number}]`).join('');
     const text = `"${query.keyword}" konusuyla ilgili ${posts.length} gönderi bulundu ${marks}. Özet çıkarma özelliği yakında eklenecek, şimdilik gönderiler bulundukları sırayla listeleniyor.`;
