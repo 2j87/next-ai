@@ -1,62 +1,62 @@
 .field {
-  position: relative;
-  display: flex;
-  align-items: center;
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .srOnly {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 .searchIcon {
-  position: absolute;
-  left: var(--space-4);
-  color: var(--color-text-muted);
-  pointer-events: none;
+    position: absolute;
+    left: var(--space-4);
+    color: var(--color-text-muted);
+    pointer-events: none;
 }
 
 .input {
-  width: 100%;
-  padding: var(--space-4) 56px var(--space-4) 48px;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--color-border);
-  background: var(--color-surface);
-  font-size: 18px;
+    width: 100%;
+    padding: var(--space-4) 56px var(--space-4) 48px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    font-size: 18px;
 }
 
 .input::placeholder {
-  color: var(--color-text-muted);
+    color: var(--color-text-muted);
 }
 
 .input:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-  border-color: var(--color-accent);
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-color: var(--color-accent);
 }
 
 .submitButton {
-  position: absolute;
-  right: var(--space-2);
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-pill);
-  border: none;
-  background: var(--color-accent);
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    position: absolute;
+    right: var(--space-2);
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-pill);
+    border: none;
+    background: var(--color-accent);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .submitButton:hover,
 .submitButton:focus-visible {
-  background: var(--color-accent-hover);
+    background: var(--color-accent-hover);
 }
