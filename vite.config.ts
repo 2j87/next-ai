@@ -19,12 +19,19 @@ function saveLlmInputPlugin(): Plugin {
                     return;
                 }
 
+                // The keyword only ever reaches the filesystem through this
+                // allowlist, so a malicious query string can't path-traverse
+                // out of OUTPUT_DIR no matter what the client sends.
+                const url = new URL(req.url ?? '', 'http://localhost');
+                const rawKeyword = url.searchParams.get('keyword') ?? '';
+                const safeKeyword = rawKeyword.replace(/[^a-z0-9-]/gi, '').slice(0, 60) || 'sorgu';
+
                 const chunks: Buffer[] = [];
                 req.on('data', (chunk) => chunks.push(chunk));
                 req.on('end', () => {
                     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
                     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-                    const filePath = path.join(OUTPUT_DIR, `${timestamp}.txt`);
+                    const filePath = path.join(OUTPUT_DIR, `${timestamp}_${safeKeyword}.txt`);
                     fs.writeFileSync(filePath, Buffer.concat(chunks), 'utf8');
 
                     res.statusCode = 200;

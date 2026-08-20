@@ -1,6 +1,7 @@
 import type { Post, SearchQuery, SummaryReference, SummaryResult } from '../types';
 import { buildLlmInput } from './llmInput';
 import { rankPosts } from './ranking';
+import { toAsciiLower } from './textUtils';
 
 const HASHTAG_TIMELINE_URL = 'https://mastodon.social/api/v1/timelines/tag';
 
@@ -116,8 +117,40 @@ export async function fetchRelevantPosts(query: SearchQuery): Promise<Post[]> {
     return rankPosts(withinRange, query.keyword, 8);
 }
 
+function slugifyKeyword(keyword: string): string {
+    return toAsciiLower(keyword)
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '')
+        .slice(0, 60);
+}
+
+// Saves the normalized document the summarization LLM will read once real
+// AI summarization replaces the placeholder text below, via the dev-server-
+// only /api/save-llm-input endpoint (see vite.config.ts). Runs for every
+// search, including zero-result ones, so the saved files reliably mirror
+// what was searched. Failing silently keeps this from breaking the summary
+// flow in production, where the endpoint doesn't exist.
+async function saveLlmInput(query: SearchQuery, posts: Post[]): Promise<void> {
+    const llmInput = posts.length > 0 ? buildLlmInput(posts) : '(gönderi bulunamadı)';
+    const slug = slugifyKeyword(query.keyword);
+
+    try {
+        const response = await fetch(`/api/save-llm-input?keyword=${encodeURIComponent(slug)}`, {
+            method: 'POST',
+            body: llmInput,
+        });
+        if (response.ok) {
+            const { path } = await response.json();
+            console.info('[llmInput] saved to', path);
+        }
+    } catch {
+        // Dev server not running this middleware (e.g. production build).
+    }
+}
+
 export async function generateSummary(query: SearchQuery, posts: Post[]): Promise<SummaryResult> {
     await wait(800);
+    await saveLlmInput(query, posts);
 
     if (posts.length === 0) {
         return {
@@ -131,18 +164,6 @@ export async function generateSummary(query: SearchQuery, posts: Post[]): Promis
         number: index + 1,
         postId: post.id,
     }));
-
-    // The normalized document the summarization LLM will read once real
-    // AI summarization replaces the placeholder text below. Saved to disk
-    // via the dev-server-only /api/save-llm-input endpoint (see
-    // vite.config.ts) so it can be inspected outside the browser.
-    const llmInput = buildLlmInput(posts);
-    try {
-        await fetch('/api/save-llm-input', { method: 'POST', body: llmInput });
-    } catch {
-        // Dev-only convenience; failing silently keeps this from breaking
-        // the summary flow in production, where the endpoint doesn't exist.
-    }
 
     const marks = references.map((ref) => `[${ref.number}]`).join('');
     const text = `"${query.keyword}" konusuyla ilgili ${posts.length} gönderi bulundu ${marks}. Özet çıkarma özelliği yakında eklenecek, şimdilik gönderiler bulundukları sırayla listeleniyor.`;
