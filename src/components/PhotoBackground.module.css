@@ -13,33 +13,34 @@
 }
 
 .blurLayer {
-    filter: blur(28px) saturate(112%);
+    filter: blur(10px) saturate(112%);
 }
 
 .sharpLayer {
-    /* Sharp near the top, fading into the blurred layer beneath by the
-       point most pages start stacking readable content. */
-    mask-image: linear-gradient(to bottom, black 0%, black 22%, transparent 48%);
-    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 22%, transparent 48%);
+    /* Sharp near the top, fading into the (now much lighter) blurred layer
+       beneath by the point most pages start stacking readable content —
+       the photo should stay recognizable, not dissolve into mush. */
+    mask-image: linear-gradient(to bottom, black 0%, black 32%, transparent 62%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 32%, transparent 62%);
 }
 
 :global([data-theme='dark']) .blurLayer,
 :global([data-theme='dark']) .sharpLayer {
-    filter: saturate(105%) brightness(0.55) contrast(1.05);
+    filter: saturate(105%) brightness(0.65) contrast(1.05);
 }
 
 :global([data-theme='dark']) .blurLayer {
-    filter: blur(28px) saturate(105%) brightness(0.55) contrast(1.05);
+    filter: blur(10px) saturate(105%) brightness(0.65) contrast(1.05);
 }
 
 @media (prefers-color-scheme: dark) {
     :global(:root:not([data-theme='light'])) .blurLayer,
     :global(:root:not([data-theme='light'])) .sharpLayer {
-        filter: saturate(105%) brightness(0.55) contrast(1.05);
+        filter: saturate(105%) brightness(0.65) contrast(1.05);
     }
 
     :global(:root:not([data-theme='light'])) .blurLayer {
-        filter: blur(28px) saturate(105%) brightness(0.55) contrast(1.05);
+        filter: blur(10px) saturate(105%) brightness(0.65) contrast(1.05);
     }
 }
 
