@@ -17,21 +17,8 @@
     text-align: center;
 }
 
-.iconBadge {
-    width: 58px;
-    height: 58px;
-    border-radius: var(--radius-md);
-    background: var(--glass-strong);
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(18px) saturate(160%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: var(--shadow-glass);
-}
-
 .heroLogo {
-    height: 44px;
+    height: 52px;
     width: auto;
 }
 
@@ -70,12 +57,7 @@
         padding: var(--space-5) var(--space-3) var(--space-4);
     }
 
-    .iconBadge {
-        width: 50px;
-        height: 50px;
-    }
-
     .heroLogo {
-        height: 38px;
+        height: 42px;
     }
 }

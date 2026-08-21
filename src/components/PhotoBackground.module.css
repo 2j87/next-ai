@@ -6,19 +6,39 @@
     pointer-events: none;
 }
 
-.imgWrap {
+.layer {
     position: absolute;
     inset: -10%;
-    filter: blur(28px) saturate(112%);
     transform: scale(1.15);
 }
 
-:global([data-theme='dark']) .imgWrap {
+.blurLayer {
+    filter: blur(28px) saturate(112%);
+}
+
+.sharpLayer {
+    /* Sharp near the top, fading into the blurred layer beneath by the
+       point most pages start stacking readable content. */
+    mask-image: linear-gradient(to bottom, black 0%, black 22%, transparent 48%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 22%, transparent 48%);
+}
+
+:global([data-theme='dark']) .blurLayer,
+:global([data-theme='dark']) .sharpLayer {
+    filter: saturate(105%) brightness(0.55) contrast(1.05);
+}
+
+:global([data-theme='dark']) .blurLayer {
     filter: blur(28px) saturate(105%) brightness(0.55) contrast(1.05);
 }
 
 @media (prefers-color-scheme: dark) {
-    :global(:root:not([data-theme='light'])) .imgWrap {
+    :global(:root:not([data-theme='light'])) .blurLayer,
+    :global(:root:not([data-theme='light'])) .sharpLayer {
+        filter: saturate(105%) brightness(0.55) contrast(1.05);
+    }
+
+    :global(:root:not([data-theme='light'])) .blurLayer {
         filter: blur(28px) saturate(105%) brightness(0.55) contrast(1.05);
     }
 }

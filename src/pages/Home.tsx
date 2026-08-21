@@ -37,18 +37,6 @@ function Home() {
     return (
         <main className={styles.page}>
             <div className={styles.hero}>
-                <div className={styles.iconBadge}>
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                        <path
-                            d="M3 17L9 9L13.5 14L16.5 10.5L21 16"
-                            stroke="var(--color-text)"
-                            strokeWidth="1.9"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        />
-                        <circle cx="17.5" cy="6.5" r="2.3" fill="var(--color-text)" />
-                    </svg>
-                </div>
                 <Logo className={styles.heroLogo} />
                 <p className={styles.tagline}>Gündemi yakala</p>
             </div>

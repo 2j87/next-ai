@@ -7,7 +7,10 @@ function PhotoBackground() {
 
     return (
         <div className={styles.wrap} aria-hidden="true">
-            <div className={styles.imgWrap}>
+            <div className={`${styles.layer} ${styles.blurLayer}`}>
+                <img src={region.image} alt="" className={styles.img} />
+            </div>
+            <div className={`${styles.layer} ${styles.sharpLayer}`}>
                 <img src={region.image} alt="" className={styles.img} />
             </div>
             <div className={styles.overlay} />
