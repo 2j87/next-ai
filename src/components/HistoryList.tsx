@@ -1,4 +1,5 @@
 import { TIME_RANGE_LABELS, type HistoryEntry } from '../types';
+import BlueprintCorners from './BlueprintCorners';
 import styles from './HistoryList.module.css';
 
 interface HistoryListProps {
@@ -16,6 +17,7 @@ function HistoryList({ entries, onSelect, onDelete }: HistoryListProps) {
         <ul className={styles.list}>
             {entries.map((entry) => (
                 <li key={entry.id} className={styles.item}>
+                    <BlueprintCorners />
                     <button
                         type="button"
                         className={styles.itemButton}

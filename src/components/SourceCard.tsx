@@ -1,4 +1,5 @@
 import type { Post } from '../types';
+import BlueprintCorners from './BlueprintCorners';
 import styles from './SourceCard.module.css';
 
 interface SourceCardProps {
@@ -23,6 +24,7 @@ function SourceCard({ post, referenceNumber }: SourceCardProps) {
 
     return (
         <article id={`kaynak-${referenceNumber}`} className={styles.card}>
+            <BlueprintCorners />
             <div
                 className={styles.avatar}
                 style={{ background: `hsl(${hue}, 55%, 42%)` }}

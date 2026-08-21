@@ -27,8 +27,9 @@
     width: 100%;
     padding: var(--space-4) 56px var(--space-4) 48px;
     border-radius: var(--radius-pill);
-    border: 1px solid var(--color-border);
-    background: var(--color-surface);
+    border: 1px solid var(--glass-border);
+    background: var(--glass-field);
+    color: var(--color-text);
     font-size: 18px;
 }
 

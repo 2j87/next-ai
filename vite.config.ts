@@ -46,4 +46,10 @@ function saveLlmInputPlugin(): Plugin {
 // https://vite.dev/config/
 export default defineConfig({
     plugins: [react(), saveLlmInputPlugin()],
+    // Binds to 0.0.0.0 instead of just localhost, so a phone on the same
+    // Wi-Fi can open the dev server at the computer's LAN IP (printed in
+    // the terminal as "Network:" when `npm run dev` starts).
+    server: {
+        host: true,
+    },
 });
