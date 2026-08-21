@@ -3,7 +3,6 @@ import { Routes, Route, Link, NavLink } from 'react-router-dom'
 import Home from './pages/Home'
 import Results from './pages/Results'
 import History from './pages/History'
-import Settings from './pages/Settings'
 import Logo from './components/Logo'
 import PhotoBackground from './components/PhotoBackground'
 import styles from './App.module.css'
@@ -26,6 +25,14 @@ function App() {
             localStorage.setItem(THEME_KEY, theme);
         }
     }, [theme]);
+
+    function toggleTheme() {
+        setTheme((current) => {
+            if (current) return current === 'dark' ? 'light' : 'dark';
+            const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+            return prefersLight ? 'dark' : 'light';
+        });
+    }
 
     return (
         <div className={styles.shell}>
@@ -59,17 +66,23 @@ function App() {
                             </span>
                             <span className={styles.navLabel}>Geçmiş</span>
                         </NavLink>
-                        <NavLink
-                            to="/ayarlar"
-                            className={({ isActive }) => `${styles.navItem} ${isActive ? styles.navItemActive : ''}`}
-                            aria-label="Ayarlar"
-                        >
-                            <span className={styles.navIconWrap}>
-                                <span className="material-symbols-outlined" aria-hidden="true">settings</span>
-                            </span>
-                            <span className={styles.navLabel}>Ayarlar</span>
-                        </NavLink>
                     </div>
+
+                    <button
+                        type="button"
+                        className={styles.themeToggle}
+                        onClick={toggleTheme}
+                        aria-label={theme === 'light' ? 'Karanlık moda geç' : 'Aydınlık moda geç'}
+                    >
+                        <span className={styles.navIconWrap}>
+                            <span className="material-symbols-outlined" aria-hidden="true">
+                                {theme === 'light' ? 'dark_mode' : 'light_mode'}
+                            </span>
+                        </span>
+                        <span className={styles.navLabel}>
+                            {theme === 'light' ? 'Karanlık mod' : 'Aydınlık mod'}
+                        </span>
+                    </button>
                 </div>
             </nav>
 
@@ -78,7 +91,6 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/sonuclar" element={<Results />} />
                     <Route path="/gecmis" element={<History />} />
-                    <Route path="/ayarlar" element={<Settings theme={theme} onPickTheme={setTheme} />} />
                 </Routes>
             </div>
         </div>

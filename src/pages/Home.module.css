@@ -35,7 +35,7 @@
     padding: var(--space-5) var(--space-4);
     background: var(--glass);
     border: 1px solid var(--glass-border);
-    backdrop-filter: blur(24px) saturate(160%);
+    backdrop-filter: blur(14px) saturate(130%);
     box-shadow: var(--shadow-glass);
     text-align: left;
 }

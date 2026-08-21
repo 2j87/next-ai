@@ -16,9 +16,9 @@
     --gradient-accent: linear-gradient(90deg, #0dd0ea 0%, #0c3bff 100%);
     color-scheme: dark;
 
-    --glass: rgba(11, 19, 38, 0.5);
-    --glass-strong: rgba(30, 41, 59, 0.6);
-    --glass-field: rgba(6, 10, 20, 0.35);
+    --glass: rgba(11, 19, 38, 0.38);
+    --glass-strong: rgba(30, 41, 59, 0.46);
+    --glass-field: rgba(6, 10, 20, 0.26);
     --glass-border: rgba(255, 255, 255, 0.14);
     --shadow-glass: 0 16px 40px rgba(0, 0, 0, 0.55);
     --overlay-bg: linear-gradient(
@@ -73,9 +73,9 @@
         --gradient-logo-to: #0058be;
         color-scheme: light;
 
-        --glass: rgba(255, 255, 255, 0.5);
-        --glass-strong: rgba(255, 255, 255, 0.62);
-        --glass-field: rgba(255, 255, 255, 0.55);
+        --glass: rgba(255, 255, 255, 0.38);
+        --glass-strong: rgba(255, 255, 255, 0.48);
+        --glass-field: rgba(255, 255, 255, 0.42);
         --glass-border: rgba(255, 255, 255, 0.65);
         --shadow-glass: 0 16px 40px rgba(25, 28, 30, 0.18);
         --overlay-bg: linear-gradient(
@@ -105,9 +105,9 @@
     --gradient-logo-to: #0058be;
     color-scheme: light;
 
-    --glass: rgba(255, 255, 255, 0.5);
-    --glass-strong: rgba(255, 255, 255, 0.62);
-    --glass-field: rgba(255, 255, 255, 0.55);
+    --glass: rgba(255, 255, 255, 0.38);
+    --glass-strong: rgba(255, 255, 255, 0.48);
+    --glass-field: rgba(255, 255, 255, 0.42);
     --glass-border: rgba(255, 255, 255, 0.65);
     --shadow-glass: 0 16px 40px rgba(25, 28, 30, 0.18);
     --overlay-bg: linear-gradient(
@@ -136,9 +136,9 @@
     --gradient-logo-to: #3b82f6;
     color-scheme: dark;
 
-    --glass: rgba(11, 19, 38, 0.5);
-    --glass-strong: rgba(30, 41, 59, 0.6);
-    --glass-field: rgba(6, 10, 20, 0.35);
+    --glass: rgba(11, 19, 38, 0.38);
+    --glass-strong: rgba(30, 41, 59, 0.46);
+    --glass-field: rgba(6, 10, 20, 0.26);
     --glass-border: rgba(255, 255, 255, 0.14);
     --shadow-glass: 0 16px 40px rgba(0, 0, 0, 0.55);
     --overlay-bg: linear-gradient(

@@ -13,7 +13,7 @@
 }
 
 .blurLayer {
-    filter: blur(10px) saturate(112%);
+    filter: blur(6px) saturate(112%);
 }
 
 .sharpLayer {
@@ -30,7 +30,7 @@
 }
 
 :global([data-theme='dark']) .blurLayer {
-    filter: blur(10px) saturate(105%) brightness(0.65) contrast(1.05);
+    filter: blur(6px) saturate(105%) brightness(0.65) contrast(1.05);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -40,7 +40,7 @@
     }
 
     :global(:root:not([data-theme='light'])) .blurLayer {
-        filter: blur(10px) saturate(105%) brightness(0.65) contrast(1.05);
+        filter: blur(6px) saturate(105%) brightness(0.65) contrast(1.05);
     }
 }
 
