@@ -147,8 +147,18 @@ async function saveLlmInput(query: SearchQuery, posts: Post[]): Promise<void> {
 // akasha-core is fine-tuned on "User: ...\nAssistant:"-shaped conversations
 // (see github.com/superroket169/akasha-core/src/main.rs) - the summarization instruction has to be
 // framed the same way for the model to recognize it as a turn to respond to.
+// English, not Turkish: there's no Turkish fine-tuning data yet, so an
+// English instruction matches its training distribution better.
+//
+// NOTE: akasha-core's context window is 512 tokens total (prompt +
+// generation). main.rs truncates an over-long prompt from the front rather
+// than failing, but that means when a search returns many/long posts, most
+// of buildLlmInput's content never reaches the model at all - only the
+// last ~300 tokens survive.
+// map-reduce/hierarchical summarization (summarize posts individually or in
+// small batches, then summarize those summaries)
 function buildSummaryPrompt(llmInput: string): string {
-    return `User: Aşağıdaki gönderileri kısaca özetle:\n\n${llmInput}\nAssistant:`;
+    return `User: Summarize the following posts briefly:\n\n${llmInput}\nAssistant:`;
 }
 
 async function requestLlmSummary(llmInput: string): Promise<string> {
