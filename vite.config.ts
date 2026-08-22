@@ -90,7 +90,14 @@ async function generate(prompt: string): Promise<string> {
                 state.buffer = '';
                 state.child.stdout.off('data', onData);
                 state.child.off('exit', onExit);
-                resolve(responseText);
+                
+                // An empty response means main.rs hit the Err branch becaouse it
+                // logs to stderr, not stdout
+                if (responseText === '') {
+                    reject(new Error('akasha-core produced no output (see server stderr)'));
+                } else {
+                    resolve(responseText);
+                }
             }
             function onExit(code: number | null) {
                 state.child.stdout.off('data', onData);
