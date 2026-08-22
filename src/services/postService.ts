@@ -20,10 +20,6 @@ interface MastodonStatus {
     };
 }
 
-function wait(ms: number): Promise<void> {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 function toHashtag(word: string): string {
     return word
         .trim()
@@ -148,8 +144,29 @@ async function saveLlmInput(query: SearchQuery, posts: Post[]): Promise<void> {
     }
 }
 
+// akasha-core is fine-tuned on "User: ...\nAssistant:"-shaped conversations
+// (see github.com/superroket169/akasha-core/src/main.rs) - the summarization instruction has to be
+// framed the same way for the model to recognize it as a turn to respond to.
+function buildSummaryPrompt(llmInput: string): string {
+    return `User: Aşağıdaki gönderileri kısaca özetle:\n\n${llmInput}\nAssistant:`;
+}
+
+async function requestLlmSummary(llmInput: string): Promise<string> {
+    const response = await fetch('/api/llm-generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: buildSummaryPrompt(llmInput) }),
+    });
+
+    if (!response.ok) {
+        throw new Error('Özet oluşturulamadı');
+    }
+
+    const { text } = await response.json();
+    return text;
+}
+
 export async function generateSummary(query: SearchQuery, posts: Post[]): Promise<SummaryResult> {
-    await wait(800);
     await saveLlmInput(query, posts);
 
     if (posts.length === 0) {
@@ -165,8 +182,7 @@ export async function generateSummary(query: SearchQuery, posts: Post[]): Promis
         postId: post.id,
     }));
 
-    const marks = references.map((ref) => `[${ref.number}]`).join('');
-    const text = `"${query.keyword}" konusuyla ilgili ${posts.length} gönderi bulundu ${marks}. Özet çıkarma özelliği yakında eklenecek, şimdilik gönderiler bulundukları sırayla listeleniyor.`;
+    const text = await requestLlmSummary(buildLlmInput(posts));
 
     return { text, references, posts };
 }
